@@ -1,10 +1,12 @@
 const GameBoard = (function(){
-  const board = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", "|", "_", 
-    "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "];
+  const board = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", 
+    "|", "_", "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "];
+
   const display = () => console.log(`${board.join("")}`);
   const changePositionValue = (positionSelected, currentPlayer) => {
     //positionSelected from event listener on DOM eventually
     //currentPlayer.marker() gives the value we want to change the position to
+
     board[positionSelected] = currentPlayer.marker;
     return board
   }
@@ -23,13 +25,23 @@ const Player = (function(){
 })();
 
 const GameController = (function(){
+  const board = GameBoard.display();
+
+  const player1 = Player.createPlayer(1)
+  const player2 = Player.createPlayer(2);
+  let activePlayer = player1
+
+  const switchPlayerTurn = () => activePlayer = activePlayer === player1 ? player2 : player1;
+  const getActivePlayer = () => activePlayer;
+
+  return {board, switchPlayerTurn, getActivePlayer}
+
 })();
 
+GameController.board;
+GameBoard.changePositionValue(3, Player.createPlayer(1))
 GameBoard.display();
-
-GameBoard.changePositionValue(2, Player.createPlayer(1))
-
-GameBoard.display();
+console.log(GameController.getActivePlayer());
 
 // Module Example (IIFEs)
 // const Formatter = (function(){
