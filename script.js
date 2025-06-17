@@ -1,5 +1,3 @@
-console.log("Node prints things");
-
 function createGameboard (){
   const gameBoard = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", "|", "_", 
     "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "];
@@ -11,12 +9,19 @@ function createGameboard (){
   return {gameBoard, displayBoard}
 }
 
-gameBoard = createGameboard();
-console.log(gameBoard.displayBoard());
+// gameBoard = createGameboard();
+// console.log(gameBoard.displayBoard());
 
-// const Gameboard = {
-//   board: ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", "|", "_", "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "],
-// }
+// Module Example (IIFEs)
+const Formatter = (function(){
+  const makeUppercase = (name = "Michael") => name.toUpperCase();
 
-// console.log(Gameboard.board.join(""))
+  const writeToDom = (selector, message) => {
+    document.querySelector(selector).textContent = message;
+  };
 
+
+  return {makeUppercase, writeToDom}
+})();
+
+console.log(Formatter.makeUppercase());
