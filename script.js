@@ -1,13 +1,10 @@
 const GameBoard = (function(){
   const board = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", 
     "|", "_", "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "];
-
   const display = () => console.log(`${board.join("")}`);
   const changePositionValue = (positionSelected, currentPlayer) => {
-    //positionSelected from event listener on DOM eventually
-    //currentPlayer.marker() gives the value we want to change the position to
-
     board[positionSelected] = currentPlayer.marker;
+
     return board
   }
   
@@ -20,6 +17,7 @@ const Player = (function(){
     const marker = playerNum === 1 ? "X" : "O";
     return {name, marker}
   }
+  // const selectPosition = () => {}
 
   return {createPlayer};
 })();
