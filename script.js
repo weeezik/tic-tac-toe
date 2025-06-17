@@ -1,38 +1,32 @@
-const GameController = (function(){
-  const changePositionValue = (board, position, value) => board[position] = value;
-  const printBoard = (board) => console.log(board);
-  return {printBoard, changePositionValue};
-})();
-
 const GameBoard = (function(){
   const board = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", "|", "_", 
     "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "];
-
   const display = () => `${board.join("")}`;
+  const changePositionValue = (positionSelected, currentPlayer) => {
+    //positionSelected from event listener on DOM eventually
+    //currentPlayer.marker() gives the value we want to change the position to
+    board[positionSelected] = currentPlayer.marker();
+    return board
+  }
   
-  return {display}
+  return {display, changePositionValue}
 })();
-
 
 const Player = (function(){
-  posValueObject = {position: "", marker: ""};
-  const placeMarker = function () {
-    posValueObject = {position: 1, marker: "X"}
-    // posValueObject[position] = 1; 
-    // posValueObject[marker] = "X";
-    return posValueObject;
-  };
+  const createPlayer = (playerNum) => {
+    const name = `Player ${playerNum}`;
+    const marker = playerNum === 1 ? "X" : "O";
+    return {name, marker}
 
-  return {placeMarker};
+  }
+
+  return {createPlayer};
 })();
 
-console.log(Player.placeMarker());
-GameController.printBoard(GameBoard.display());
+const GameController = (function(){
+})();
 
-GameController.changePositionValue(GameBoard.display(), Player.placeMarker().position, Player.placeMarker().marker)
-
-GameController.printBoard(GameBoard.display());
-
+console.log(Player.createPlayer(1).marker);
 
 
 
