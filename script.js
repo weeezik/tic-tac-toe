@@ -1,27 +1,24 @@
-function createGameboard (){
-  const gameBoard = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", "|", "_", 
+const GameBoard = (function(){
+  const board = ["_", "_", "|", "_", "|", "_", "_", "\n", "_", "_", "|", "_", 
     "|", "_", "_", "\n", " ", " ", "|", " ", "|", " ", " "];
 
-  const displayBoard = function() {
-    return `${gameBoard.join("")}`
-  }
-
-  return {gameBoard, displayBoard}
-}
-
-// gameBoard = createGameboard();
-// console.log(gameBoard.displayBoard());
-
-// Module Example (IIFEs)
-const Formatter = (function(){
-  const makeUppercase = (name = "Michael") => name.toUpperCase();
-
-  const writeToDom = (selector, message) => {
-    document.querySelector(selector).textContent = message;
-  };
-
-
-  return {makeUppercase, writeToDom}
+  const display = () => `${board.join("")}`;
+  
+  return {display}
 })();
 
-console.log(Formatter.makeUppercase());
+console.log(GameBoard.display());
+
+// Module Example (IIFEs)
+// const Formatter = (function(){
+//   const makeUppercase = (name = "Michael") => name.toUpperCase();
+
+//   const writeToDom = (selector, message) => {
+//     document.querySelector(selector).textContent = message;
+//   };
+
+
+//   return {makeUppercase, writeToDom}
+// })();
+
+// console.log(Formatter.makeUppercase());
