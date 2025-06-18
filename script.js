@@ -14,15 +14,7 @@ const GameBoard = (function(){
   const getBoard = () => board;
   const displayBoard = () => console.log(board);
   const changeSpaceValue = (position, currentPlayer) => {
-    if (board[position] != ""){
-      console.log("Position already taken, choose another.");
-      GameController.turn(genRandomPosition(), currentPlayer)
-    } else if (board[position]===""){
-      board[position]=currentPlayer.marker;
-    } else {
-      console.log("Error with changeSpaceValue() function")
-    }
-    
+    board[position]=currentPlayer.marker;    
     return board
   }
   
@@ -30,6 +22,7 @@ const GameBoard = (function(){
 })();
 
 const GameController = (function(){
+  const board = GameBoard.getBoard();
   const startGame = () => {
     GameBoard.displayBoard();
   };
@@ -52,11 +45,11 @@ const GameController = (function(){
   const switchPlayerTurn = () => activePlayer = activePlayer === player1 ? player2 : player1;
   const getActivePlayer = () => activePlayer;
   const turn = function(position = genRandomPosition(),player = getActivePlayer()) {
-    // if (board[position] != "") return;
+    if (board[position] != "") {console.log("This location is taken."); return};
     GameBoard.changeSpaceValue(position, player)
     GameBoard.displayBoard();
     switchPlayerTurn();
-    winCheck();
+    // winCheck();
   }
 
   return {startGame, turn}
@@ -70,8 +63,10 @@ GameController.turn()
 GameController.turn()
 GameController.turn()
 GameController.turn()
-
-console.log(GameBoard.getBoard().length)
+GameController.turn()
+GameController.turn()
+GameController.turn()
+GameController.turn()
 
 
 
