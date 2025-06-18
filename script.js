@@ -1,8 +1,10 @@
 function Space() {
   let value = "";
+
   const addMarker = (player) => {
     value = player.marker
   }
+
   const getValue = () => value;
 
   return {addMarker, getValue}
@@ -10,25 +12,25 @@ function Space() {
 
 const GameBoard = (function(){
   const board = [];
-  const rows = 3;
-  const columns = 3;
 
-  for (let i=0; i < rows; i++) {
-    board[i] = []
-    for (let j=0; j < columns; j++) {
-      board[j] = board.push(Space());
-    }
-  }
+  // const rows = 3;
+  // const columns = 3;
+  // for (let i=0; i < rows; i++) {
+  //   board[i] = [];
+  //   for (let j=0; j < columns; j++) {
+  //     board[i] = board.push(Space());
+  //   }
+  // }
 
   const displayBoard = () => board;
 
-  const changePositionValue = (positionSelected, currentPlayer) => {
+  const changeSpaceValue = (positionSelected, currentPlayer) => {
+    //In the 3rd column and the first row, place an "X"
     board[positionSelected] = currentPlayer.marker;
-
     return board
   }
   
-  return {displayBoard, changePositionValue}
+  return {displayBoard, changeSpaceValue}
 })();
 
 
@@ -40,7 +42,7 @@ function createPlayer (playerNum) {
 
 
 const GameController = (function(){
-  const board = GameBoard.display();
+  const board = GameBoard.displayBoard();
 
   const player1 = createPlayer(1);
   const player2 = createPlayer(2);
@@ -50,7 +52,7 @@ const GameController = (function(){
   const getActivePlayer = () => activePlayer.name;
 
   const turn = function(positionSelected = 2, player = getActivePlayer()) {
-    GameBoard.changePositionValue(positionSelected, player)
+    GameBoard.changeSpaceValue(positionSelected, player)
   }
   
 
@@ -58,7 +60,8 @@ const GameController = (function(){
 
 })();
 
-console.log(GameController.getActivePlayer())
+// console.log(GameController.getActivePlayer())
+console.log(GameBoard.displayBoard());
 
 // Module Example (IIFEs)
 // const Formatter = (function(){
