@@ -4,35 +4,66 @@ function createPlayer (playerNum) {
   return {name, marker};
 }
 
-const GameBoard = (function(){
-  const board = [];
-  const displayBoard = () => console.log(board);
-  const changeSpaceValue = (currentPlayer) => {
-    board.push(currentPlayer.marker);
+function genRandomPosition(){
+  let pos = Math.floor(Math.random() * 9);
+  return pos
+}
 
+const GameBoard = (function(){
+  const board = ["", "", "", "", "", "", "", "", ""];
+  const getBoard = () => board;
+  const displayBoard = () => console.log(board);
+  const changeSpaceValue = (position, currentPlayer) => {
+    if (board[position] != ""){
+      console.log("Position already taken, choose another.");
+      GameController.turn(genRandomPosition(), currentPlayer)
+    } else if (board[position]===""){
+      board[position]=currentPlayer.marker;
+    } else {
+      console.log("Error with changeSpaceValue() function")
+    }
+    
     return board
   }
   
-  return {displayBoard, changeSpaceValue}
+  return {getBoard, displayBoard, changeSpaceValue}
 })();
 
 const GameController = (function(){
+  const startGame = () => {
+    GameBoard.displayBoard();
+  };
+  const winCheck = (board = GameBoard.getBoard()) => {
+    //if board.length > 4, check for win conditions
+    for (let pos of board) {
+      if (pos==="") {continue;}
+      else if (pos==="X") {
+        console.log(`This pos has value of ${pos}`);
+      } else if (pos==="O") {
+        console.log(`This pos has value of ${pos}`);
+      } else {
+      console.log("Error with winCheck() function");
+      }
+    }
+  }
   const player1 = createPlayer(1);
   const player2 = createPlayer(2);
   let activePlayer = player1;
   const switchPlayerTurn = () => activePlayer = activePlayer === player1 ? player2 : player1;
   const getActivePlayer = () => activePlayer;
-  const turn = function(player = getActivePlayer()) {
-    GameBoard.changeSpaceValue(player)
+  const turn = function(position = genRandomPosition(),player = getActivePlayer()) {
+    // if (board[position] != "") return;
+    GameBoard.changeSpaceValue(position, player)
     GameBoard.displayBoard();
     switchPlayerTurn();
+    winCheck();
   }
 
-  return {switchPlayerTurn, getActivePlayer, turn}
+  return {startGame, turn}
 })();
+
 //Start game
-GameBoard.displayBoard()
-
+GameController.startGame()
 GameController.turn()
 GameController.turn()
 GameController.turn()
@@ -40,15 +71,7 @@ GameController.turn()
 GameController.turn()
 GameController.turn()
 
-
-
-
-
-
-
-
-
-
+console.log(GameBoard.getBoard().length)
 
 
 
