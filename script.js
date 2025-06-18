@@ -6,7 +6,7 @@ function createPlayer (playerNum) {
 
 const GameBoard = (function(){
   const board = [];
-  const displayBoard = () => board;
+  const displayBoard = () => console.log(board);
   const changeSpaceValue = (currentPlayer) => {
     board.push(currentPlayer.marker);
 
@@ -24,16 +24,21 @@ const GameController = (function(){
   const getActivePlayer = () => activePlayer;
   const turn = function(player = getActivePlayer()) {
     GameBoard.changeSpaceValue(player)
+    GameBoard.displayBoard();
+    switchPlayerTurn();
   }
 
   return {switchPlayerTurn, getActivePlayer, turn}
 })();
+//Start game
+GameBoard.displayBoard()
 
-console.log(GameBoard.displayBoard())
-console.log(GameBoard.changeSpaceValue(GameController.getActivePlayer()));
-console.log(GameBoard.displayBoard())
-GameController.switchPlayerTurn();
-console.log(GameBoard.changeSpaceValue(GameController.getActivePlayer()));
+GameController.turn()
+GameController.turn()
+GameController.turn()
+GameController.turn()
+GameController.turn()
+GameController.turn()
 
 
 
